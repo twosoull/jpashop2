@@ -15,6 +15,7 @@ public class Member {
     @Id @GeneratedValue
     @Column(name="member_id")
     private Long id;
+
     private String name;
 
     @Embedded // jpa 내장타입 일 수 있다는 표시
