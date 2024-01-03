@@ -10,4 +10,13 @@ public class Address {
     private String city;
     private String street;
     private String zipcode;
+
+    protected Address() { // 엔티티나 임베디드 타입은 jpa 스팩상에 기본생성자가 꼭 필요하다.
+    }
+
+    public Address(String city, String street, String zipcode) {
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
 }
