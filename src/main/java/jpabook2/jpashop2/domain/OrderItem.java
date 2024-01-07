@@ -24,4 +24,8 @@ public class OrderItem {
 
     private int orderPrice; //주문 가격
     private int count;
+
+    public void cancel() {
+        getItem().addStock(count);
+    }
 }
