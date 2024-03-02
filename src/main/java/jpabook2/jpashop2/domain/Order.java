@@ -3,6 +3,7 @@ package jpabook2.jpashop2.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Order {
     @JoinColumn(name = "member_id") //FK를 지정해준다.
     private Member member;
 
+    @BatchSize(size = 100)
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) //cascade는 여러개를 한 번에 해줌.. 무슨말인지 잘모르겠다
     private List<OrderItem> orderItems = new ArrayList<>();
 
