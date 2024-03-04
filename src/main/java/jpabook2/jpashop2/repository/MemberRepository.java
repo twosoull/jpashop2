@@ -1,37 +1,13 @@
 package jpabook2.jpashop2.repository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jpabook2.jpashop2.domain.Member;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-@Repository
-@RequiredArgsConstructor //autowired가 지원하기에 이것 또한 가능하다.final만 생성하기
-public class MemberRepository {
+public interface MemberRepository extends JpaRepository<Member, Long> { //Long은 아이디
 
-    //@PersistenceContext //자동으로 엔티티매니저를 만들어준다.
-    //@Autowired jpa에서 이렇게도 지원해준다
-    //private EntityManager em;
+    //findBy하고 Name이 있으면 select m from Member m where m.name =? 이라는 쿼리를 만들어버린다. 자동화 되어 있다..
+    List<Member> findByName(String name);
 
-    private final EntityManager em;
-
-    public void save(Member member){
-        em.persist(member);
-    }
-
-    public Member findOne(Long id){
-        return em.find(Member.class, id);
-    }
-
-    public List<Member> findAll(){//sql이 아닌 jtgl 이다.
-        return em.createQuery("select m from Member m", Member.class).getResultList();
-    }
-
-    public List<Member> findByName(String name){
-        return em.createQuery("select m from Member m where m.name = :name", Member.class)
-                .setParameter("name", name).getResultList();
-    }
 }
